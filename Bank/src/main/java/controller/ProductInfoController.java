@@ -61,18 +61,18 @@ public class ProductInfoController extends HttpServlet {
 	    String command = uri.substring(conPath.length());
 	    System.out.println("command : " + command);
 
-	    if (command.equals("/apiTest/view/makeAccountSelect.do")) {
+	    if (command.equals("/view/makeAccountSelect.do")) {
 	        ProductInfoService service = new ProductInfoServiceImpl();
 	        List<ProductInfoDTO> dtos = service.getProductList();
 	        request.setAttribute("productlist", dtos);
 
 	        viewPage = "/view/makeAccountSelect.jsp";
-
+	    
 	        // 포워딩
 	        RequestDispatcher reqDpt = request.getRequestDispatcher(viewPage);
 	        reqDpt.forward(request, response);
-	    }
+	    
 	}
 
-	
+	}
 }

@@ -19,4 +19,14 @@
     <servlet-name>ProductInfoController</servlet-name>
     <url-pattern>/ProductInfoController</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AccountInfoController</display-name>
+    <servlet-name>AccountInfoController</servlet-name>
+    <servlet-class>controller.AccountInfoController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AccountInfoController</servlet-name>
+    <url-pattern>/AccountInfoController</url-pattern>
+  </servlet-mapping>
 </web-app>

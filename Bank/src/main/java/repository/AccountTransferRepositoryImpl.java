@@ -13,10 +13,10 @@ import vo.AccountTransferInfoDTO;
 public class AccountTransferRepositoryImpl implements AccountTransferRepository {
 
     private static AccountTransferRepositoryImpl instance = null;
-    private final String DB_URL =
-            "jdbc:oracle:thin:@dinkdb_medium?TNS_ADMIN=/opt/wallet/Wallet_DinkDB"; // 데이터베이스 url
-    private final String USER = "DA2321";
-    private final String PASS = "Data2321";
+    private final String DB_URL =                              
+            "jdbc:oracle:thin:@dinkdb_medium?TNS_ADMIN=C:/oracle/Wallet_DinkDB"; // database url
+    private final String USER = "DA2316";
+    private final String PASS = "Data2316";
 
     public AccountTransferRepositoryImpl() {
         try {

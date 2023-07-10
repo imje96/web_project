@@ -7,16 +7,18 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
+
 import vo.AccountInfoDTO;
 
 public class AccountInfoRepositoryImpl implements AccountInfoRepository {
 
     private static AccountInfoRepositoryImpl instance = null;
 
-    private final String DB_URL =
-            "jdbc:oracle:thin:@dinkdb_medium?TNS_ADMIN=/opt/wallet/Wallet_DinkDB"; // 데이터베이스 url
-    private final String USER = "DA2321";
-    private final String PASS = "Data2321";
+    private final String DB_URL =                              
+            "jdbc:oracle:thin:@dinkdb_medium?TNS_ADMIN=C:/oracle/Wallet_DinkDB"; // database url
+    private final String USER = "DA2316";
+    private final String PASS = "Data2316";
 
     public AccountInfoRepositoryImpl() {
         try {
@@ -64,5 +66,45 @@ public class AccountInfoRepositoryImpl implements AccountInfoRepository {
 
         return accountInfos;
     }
-
+    
+    private String getRandomNumber() {
+        Random random = new Random();
+        return Integer.toString(random.nextInt(9000));
+    }
+    
+    @Override
+    public void createAccount(String memberId, String accountPassword, String nickname, int accountType) {
+        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS)) {
+            String sql = "INSERT INTO account_info_woori (account_number, member_id, bank_code, branch_code, account_password, balance, nickname, account_type, account_status, reg_date) " +
+                    "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, sysdate)";
+           
+            String accountNumber = "001" + "-" + getRandomNumber() + "-" + getRandomNumber();
+            String bankCode = "우리";
+            String branchCode = "001";
+            // accountStatus 1이 정상 계좌
+            int accountStatus = 1; 
+            try (PreparedStatement stmt = conn.prepareStatement(sql)){
+                stmt.setString(1, accountNumber);
+                stmt.setString(2, memberId);
+                stmt.setString(3, bankCode);
+                stmt.setString(4, branchCode);
+                stmt.setString(5, accountPassword);
+                stmt.setInt(6, 0);
+                stmt.setString(7, nickname);
+                stmt.setInt(8, accountType);
+                stmt.setInt(9, accountStatus);
+                stmt.executeUpdate();
+            }catch (SQLException e) {
+                // Handle any potential database errors
+                e.printStackTrace();
+            }
+        } catch (SQLException e) {
+            // Handle any potential database errors
+            e.printStackTrace();
+        }
+    }
+    
+    
 }
+
+

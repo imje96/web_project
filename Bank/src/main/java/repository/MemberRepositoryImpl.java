@@ -6,14 +6,18 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.sql.DataSource;
+
 public class MemberRepositoryImpl implements MemberRepository {
 
     private static MemberRepositoryImpl instance = null;
 
     private final String DB_URL =                              
-            "jdbc:oracle:thin:@dinkdb_medium?TNS_ADMIN=/opt/wallet/Wallet_DinkDB"; // database url
-    private final String USER = "DA2321";
-    private final String PASS = "Data2321";
+            "jdbc:oracle:thin:@dinkdb_medium?TNS_ADMIN=C:/oracle/Wallet_DinkDB"; // database url
+    private final String USER = "DA2316";
+    private final String PASS = "Data2316";
 
     public MemberRepositoryImpl() {
         try {
@@ -39,7 +43,8 @@ public class MemberRepositoryImpl implements MemberRepository {
         String result = "";
         String query = "SELECT member_id FROM member_hana WHERE personal_id_number = ?";
 
-        try (Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
+        try (
+        		Connection conn = DriverManager.getConnection(DB_URL, USER, PASS);
                 PreparedStatement ps = conn.prepareStatement(query)) {
             ps.setString(1, personalIdNumber);
             try (ResultSet rs = ps.executeQuery()) {
