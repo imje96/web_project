@@ -1,3 +1,4 @@
+<%@page import="vo.MemberDTO"%>
 <%@page import="vo.ProductInfoDTO"%>
 <%@ page import="javax.naming.*, javax.sql.*, java.sql.*, java.util.*" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -515,6 +516,42 @@ function selectAllAccounts() {
             <div class="title">계좌개설</div>
             <div class="select_bank">
                 <div class="btn-group" role="group" aria-label="Select Bank">
+                    <button type="button" class="btn btn-secondary" onclick="selectAllAccounts()">하나은행</button>
+                    <!-- 
+                    <button type="button" class="btn btn-secondary" onclick="selectDepositAccounts()">예금 계좌</button>
+                    <button type="button" class="btn btn-secondary" onclick="selectSavingAccounts()">적금 계좌</button>
+                     -->
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row row-cols-3 justify-content-center">
+        <% 
+        List<ProductInfoDTO> productList = getProductList();
+        for(ProductInfoDTO product: productList) { 
+        %>
+        <div class="col">
+            <div class="product-container-lg border p-3" onmouseover="this.style.backgroundColor='#f1f1f1';" onmouseout="this.style.backgroundColor='transparent';" onclick="window.location.href='createAccount.jsp';">
+                <p class="product-name"><%= product.getProductName() %></p>
+                <p class="product-category"><%= product.getProductCategory() %></p>
+                <p class="product-interest-rate-lg"><%= String.format("%.2f", product.getInterestRate()) %>%</p>
+                <p class="product-minimum-balance"><small>Minimum Balance:</small> <%= product.getMinimumBalance() %></p>
+                <p class="product-description-lg"><small>Description:</small> <%= product.getProductDescription() %></p>
+            </div>
+        </div>
+        <% 
+        } 
+        %>
+    </div>
+</div>
+
+<%-- <div class="container mt-4 border">
+    <div class="section1">
+        <!-- 섹션 1 내용 -->
+        <div class="account-info">
+            <div class="title">계좌개설</div>
+            <div class="select_bank">
+                <div class="btn-group" role="group" aria-label="Select Bank">
                     <button type="button" class="btn btn-secondary" onclick="selectAllAccounts()">입출금 계좌</button>
                     <button type="button" class="btn btn-secondary" onclick="selectDepositAccounts()">예금 계좌</button>
                     <button type="button" class="btn btn-secondary" onclick="selectSavingAccounts()">적금 계좌</button>
@@ -542,7 +579,7 @@ function selectAllAccounts() {
     </div>
 </div>
 
-
+ --%>
 
 
 
@@ -580,5 +617,27 @@ function selectAllAccounts() {
     <!— 부트스트랩 JavaScript 연결 —>
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
+
+<script>
+    // createAccount.jsp로 이동하는 함수
+    function goToCreateAccount() {
+        window.location.href = "view/createAccount.jsp";
+    }
+</script>
+
+<!-- createAccount.jsp로 이동하는 버튼 -->
+<button onclick="goToCreateAccount()">계좌 개설</button>
+
+<!-- 기존 내용 -->
+<%
+    MemberDTO dto = new MemberDTO();
+    //DTO 객체에 데이터 설정
+    dto.setMemberId("gj98");
+    dto.setName("John Doe");
+    dto.setEmail("johndoe@example.com");
+
+    session.setAttribute("dto", dto);
+%>
+
 </body>
 </html>

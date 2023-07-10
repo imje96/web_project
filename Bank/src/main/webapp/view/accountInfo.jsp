@@ -455,8 +455,6 @@ function selectAllAccounts() {
                             aria-current="page" href="innerAccount.jsp">계좌조회</a></li>
                         <li class="nav-item"><a class="nav-link"
                             href="innerAccount.jsp">계좌이체</a></li>
-                            
-                            <!-- 추후 makeAccountSelect.do로 수정해야 함 -->
                         <li class="nav-item"><a class="nav-link"
                             href="makeAccountSelect.jsp">계좌개설</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">고객센터</a></li>
@@ -472,6 +470,9 @@ function selectAllAccounts() {
             </div>
         </nav>
     </div>
+    <!-- 임시로 추가 -->
+     <li class="nav-item"><a class="nav-link"
+                            href="makeAccountSelect.jsp">계좌개설</a></li>
     <hr class="navbar-divider">
 
 
