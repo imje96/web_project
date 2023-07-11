@@ -1,44 +1,14 @@
-<%@page import="vo.MemberDTO"%>
-<%@page import="vo.ProductInfoDTO"%>
-<%@ page import="javax.naming.*, javax.sql.*, java.sql.*, java.util.*" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%! 
-// 메서드 호출은 임시 테스트용 
-    List<ProductInfoDTO> getProductList() {
-        List<ProductInfoDTO> dtos = new ArrayList<>();
-        try {
-            Context ctx = new InitialContext();
-            DataSource ds = (DataSource) ctx.lookup("java:comp/env/jdbc/oracle");
-            Connection conn = ds.getConnection();
-            String query = "SELECT * FROM product_info";
-            PreparedStatement pstmt = conn.prepareStatement(query);
-            ResultSet rs = pstmt.executeQuery();
-            while (rs.next()) {
-                ProductInfoDTO dto = new ProductInfoDTO(
-                    rs.getInt("product_id"),
-                    rs.getString("product_name"),
-                    rs.getString("product_category"),
-                    rs.getDouble("interest_rate"),
-                    rs.getInt("term"),
-                    rs.getInt("minimum_balance"),
-                    rs.getString("product_description")
-                );
-                dtos.add(dto);
-            }
-            rs.close();
-            pstmt.close();
-            conn.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return dtos;
-    }
-%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page import="vo.MemberDTO" %> 
+<%@ page import="org.json.JSONObject" %>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>Insert title here</title>
+<title>웹 페이지</title>
 <style>
 /* CSS 스타일 지정 */
 body {
@@ -62,7 +32,6 @@ body {
     text-align: center;
 }
 
-/* 메뉴바 */
 .navbar-nav .nav-item {
     margin-left: 50px;
 }
@@ -102,21 +71,14 @@ body {
     width: 100%;
 }
 
-/* 제목  */
 .section1 {
     background-color: #FFFFFF;
     height: 800px;
 }
 
-.account-info {
-    width: 100%;
-    height: 150px;
-    position: relative;
-}
-
 .title {
     left: 180px;
-    top: 45px;
+    top: 180px;
     position: absolute;
     text-align: center;
     color: black;
@@ -124,182 +86,79 @@ body {
     font-family: Noto Sans KR;
 }
 
-/* 은행선택 */
-.select_bank {
-    left: 300px;
-    top: 40px;
-    position: absolute;
-}
-
-.btn-group {
-    display: flex;
-    gap: 10px;
-}
-
-.btn-group .btn {
-    font-size: 18px;
-    font-family: Inter, sans-serif;
-    font-weight: 500;
-    line-height: 1.5;
-    padding: 10px 20px;
-    border-radius: 30px;
-    background-color: #f7f7f7;
-    color: #080C0C;
-    transition: background-color 0.3s, color 0.3s;
-    border: 2px solid #f7f7f7;
-}
-
-.btn-group .btn:hover, .btn-group .btn:focus {
-    background-color: #419390;
-    color: #ffffff;
-    border-color: #419390;
-}
-
-/* 입출금, 예적금 */
-/* .category-wrapper {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 200px;
-    height: 10px;
-    position: absolute;
-    top: 120px;
-    left: 180px;
-}
-
-.category {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #ffffff;
-    height: 40px;
-    padding: 3px 15px;
-    border-radius: 30px;
-    font-size: 15px;
-    white-space: nowrap;
-    border: 2px solid #cccccc;
-    border-radius: 30px;
-    white-space: nowrap;
-    margin-right: 20px;
-} */
-
-/* 아코디언 */
-.accordion {
-    width: 90%;
+#product-table {
+    width: 80%;
     margin: 0 auto;
-    position: relative;
+    margin-top: -80px;
+    ]
 }
 
-.accordion-item {
-    margin-bottom: 10px;
+th, td {
+    padding: 12px 20px;
+    text-align: left;
+    border-bottom: 1px solid #eee;
 }
 
-.accordion-button {
+th {
     background-color: #f2f2f2;
-    color: #333333;
-    height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 30px;
+}
+
+tr:hover {
+    background-color: #f9f9f9;
+}
+
+.product-buttons {
+    list-style-type: none;
+    padding: 0;
+    margin: 140px 0;
+    margin-left: 180px;
+}
+
+.product-buttons li {
+    display: inline-block;
+    margin-right: 10px;
+}
+
+.product-buttons button {
+    background-color: #009490;
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 30px;
+    font-size: 16px;
     font-weight: bold;
     cursor: pointer;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
-.accordion-button:hover {
-    background-color: #e6e6e6;
+.product-buttons button:hover {
+    background-color: #00756d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.accordion-body {
-    padding: 10px;
-    background-color: #ffffff;
-    border: 1px solid #cccccc;
-    border-radius: 5px;
-    height: 200px;
-    font-size: 20px;
-    color: #555555;
-    line-height: 1.5;
-}
-
-/*계좌 상세정보*/
-.account-details {
-    display: flex;
-    align-items: center;
-}
-
-.right-column {
-    flex: 1;
-    text-align: right;
-}
-
-.left-column {
-    flex: 1;
-    margin-top: 30px;
-    margin-left: 30px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    display: flex;
-}
-
-.account-info {
-    font-size: 20px;
-    font-family: inherit;
-}
-
-.account-bank, .account-number, .account-name {
-    display: block;
-    margin-bottom: 5px;
-}
-
-.account-bank {
-    color: #419390;
-}
-
-.account-number, .account-name {
-    color: #080C0C;
-}
-
-.buttons {
-    gap: 10px;
-    margin-left: 50px;
-    flex-direction: column;
-}
-
-.transfer-button, .transaction-button {
-    padding: 5px 0;
-    background-color: #30354B;
-    color: white;
+.show-all-button {
+    background-color: #009490;
+    color: #fff;
+    padding: 10px 20px;
     border: none;
-    font-weight: 500;
-    font-size: 20px;
     border-radius: 30px;
+    font-size: 16px;
+    font-weight: bold;
     cursor: pointer;
-    width: 150px;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
-.balance {
-    font-size: 25px;
-    font-family: inherit;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    margin-right: 20px;
-    order: -1; /* Place the balance element before the buttons */
-}
-/* .section2 {
-    background-color: #ECF0F1;
-    height: 150px;
+.show-all-button:hover {
+    background-color: #00756d;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-.section3 {
-    background-color: #fffff;
-    height: 200px;
+.hide {
+    display: none;
 }
- */
-/* 푸터 */
+
 .BankFooter {
     background-color: #f7f7f7;
     padding: 20px;
@@ -401,72 +260,8 @@ body {
 }
 </style>
 
-<script>
-function selectAllAccounts() {
-     var personalIdNumber = document.getElementById("personalIdNumber").value;
 
-     var xhr = new XMLHttpRequest();
-     xhr.open("GET", "accounts?personalIdNumber=" + encodeURIComponent(personalIdNumber), true);
-     xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-     console.log("readyState:", xhr.readyState, "status:", xhr.status);
-     xhr.onreadystatechange = function () {
-       console.log("readyState:", xhr.readyState, "status:", xhr.status);
-       if (xhr.readyState === 4) {
-         if (xhr.status === 200) {
-           var response = xhr.responseText;
-           var accountInfos = JSON.parse(response);
-
-           var accountDetailsContainer = document.getElementById("accountDetailsContainer");
-           accountDetailsContainer.innerHTML = ""; // 이전 내용 초기화
-
-           var table = document.createElement("table");
-           var thead = document.createElement("thead");
-           var tbody = document.createElement("tbody");
-
-           var trHead = document.createElement("tr");
-           var thAccountNumber = document.createElement("th");
-           thAccountNumber.textContent = "Account Number";
-           var thAccountHolder = document.createElement("th");
-           thAccountHolder.textContent = "Account Holder";
-           var thBalance = document.createElement("th");
-           thBalance.textContent = "Balance";
-
-           trHead.appendChild(thAccountNumber);
-           trHead.appendChild(thAccountHolder);
-           trHead.appendChild(thBalance);
-           thead.appendChild(trHead);
-
-           for (var i = 0; i < accountInfos.length; i++) {
-             var accountInfo = accountInfos[i];
-             var tr = document.createElement("tr");
-             var tdAccountNumber = document.createElement("td");
-             tdAccountNumber.textContent = accountInfo.accountNumber;
-             var tdAccountHolder = document.createElement("td");
-             tdAccountHolder.textContent = accountInfo.accountHolder;
-             var tdBalance = document.createElement("td");
-             tdBalance.textContent = accountInfo.balance;
-
-             tr.appendChild(tdAccountNumber);
-             tr.appendChild(tdAccountHolder);
-             tr.appendChild(tdBalance);
-             tbody.appendChild(tr);
-           }
-
-           table.appendChild(thead);
-           table.appendChild(tbody);
-           accountDetailsContainer.appendChild(table);
-         } else {
-           console.log("Error:", xhr.status, xhr.statusText);
-         }
-       }
-     };
-
-     xhr.send();
-   }
-
-</script>
-
-
+<!-- 부트스트랩 연결 -->
 <link rel="stylesheet"
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 </head>
@@ -487,9 +282,7 @@ function selectAllAccounts() {
                         <li class="nav-item"><a class="nav-link active"
                             aria-current="page" href="innerAccount.jsp">계좌조회</a></li>
                         <li class="nav-item"><a class="nav-link"
-                            href="innerAccount.jsp">계좌이체</a></li>
-                            
-                            <!-- 추후 makeAccountSelect.do로 수정해야 함 -->
+                            href="accountTransferInner.jsp">계좌이체</a></li>
                         <li class="nav-item"><a class="nav-link"
                             href="makeAccountSelect.jsp">계좌개설</a></li>
                         <li class="nav-item"><a class="nav-link" href="#">고객센터</a></li>
@@ -504,95 +297,102 @@ function selectAllAccounts() {
                 </form>
             </div>
         </nav>
+
     </div>
     <hr class="navbar-divider">
 
-
-<!--  핵심 상품 리스트 부분  -->
-<div class="container mt-4 border">
     <div class="section1">
-        <!-- 섹션 1 내용 -->
-        <div class="account-info">
-            <div class="title">계좌개설</div>
-            <div class="select_bank">
-                <div class="btn-group" role="group" aria-label="Select Bank">
-                    <button type="button" class="btn btn-secondary" onclick="selectAllAccounts()">하나은행</button>
-                    <!-- 
-                    <button type="button" class="btn btn-secondary" onclick="selectDepositAccounts()">예금 계좌</button>
-                    <button type="button" class="btn btn-secondary" onclick="selectSavingAccounts()">적금 계좌</button>
-                     -->
-                </div>
-            </div>
-        </div>
+
+    <%
+    MemberDTO dto = (MemberDTO)session.getAttribute("dto");
+    out.println(dto.getName()+"님");
+    %>
+
+
+        <script>
+            function showDetails(productType) {
+                var table = document.getElementById("product-table");
+                var rows = table.getElementsByTagName("tr");
+
+                for (var i = 1; i < rows.length; i++) {
+                    var row = rows[i];
+                    var productTypeCell = row.cells[0];
+                    if (productTypeCell.innerText === productType) {
+                        row.style.display = "table-row";
+                    } else {
+                        row.style.display = "none";
+                    }
+                }
+            }
+
+            function showAll() {
+                var table = document.getElementById("product-table");
+                var rows = table.getElementsByTagName("tr");
+
+                for (var i = 1; i < rows.length; i++) {
+                    rows[i].style.display = "table-row";
+                }
+            }
+        </script>
+
+        <div class="title">계좌개설 / 상품목록</div>
+
+        <ul class="product-buttons">
+            <li><button onclick="showDetails('입출금상품')">입출금 상품</button></li>
+            <li><button onclick="showDetails('예금적금상품')">예금적금 상품</button></li>
+            <li><button onclick="showDetails('보험상품')">보험 상품</button></li>
+            <li><button class="show-all-button" onclick="showAll()">전체
+                    상품 보기</button></li>
+        </ul>
+
+<table id="product-table">
+    <thead>
+        <tr>
+            <th>상품 종류</th>
+            <th>세부 상품</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td>입출금상품</td>
+            <td><a href="#" onclick="passText(this, '입출금 상품 A')">입출금 상품 A</a></td>
+        </tr>
+        <tr>
+            <td>입출금상품</td>
+            <td><a href="#" onclick="passText(this, '입출금 상품 B')">입출금 상품 B</a></td>
+        </tr>
+        <tr>
+            <td>예금적금상품</td>
+            <td><a href="#" onclick="passText(this, '예금적금 상품 X')">예금적금 상품 X</a></td>
+        </tr>
+        <tr>
+            <td>예금적금상품</td>
+            <td><a href="#" onclick="passText(this, '예금적금 상품 Y')">예금적금 상품 Y</a></td>
+        </tr>
+        <tr>
+            <td>보험상품</td>
+            <td><a href="#" onclick="passText(this, '보험 상품 I')">보험 상품 I</a></td>
+        </tr>
+        <tr>
+            <td>보험상품</td>
+            <td><a href="#" onclick="passText(this, '보험 상품 II')">보험 상품 II</a></td>
+        </tr>
+    </tbody>
+</table>
+
+<script>
+    function passText(element, text) {
+        // 다음 페이지로 텍스트를 전달하는 방법 (예시)
+        window.location.href = "/KakaoLoginTest/view/makeAccount.jsp?text=" + encodeURIComponent(text);
+    }
+</script>
+
+
+
+
+
+
     </div>
-    <div class="row row-cols-3 justify-content-center">
-        <% 
-        List<ProductInfoDTO> productList = getProductList();
-        for(ProductInfoDTO product: productList) { 
-        %>
-        <div class="col">
-            <div class="product-container-lg border p-3" onmouseover="this.style.backgroundColor='#f1f1f1';" onmouseout="this.style.backgroundColor='transparent';" onclick="window.location.href='createAccount.jsp';">
-                <p class="product-name"><%= product.getProductName() %></p>
-                <p class="product-category"><%= product.getProductCategory() %></p>
-                <p class="product-interest-rate-lg"><%= String.format("%.2f", product.getInterestRate()) %>%</p>
-                <p class="product-minimum-balance"><small>Minimum Balance:</small> <%= product.getMinimumBalance() %></p>
-                <p class="product-description-lg"><small>Description:</small> <%= product.getProductDescription() %></p>
-            </div>
-        </div>
-        <% 
-        } 
-        %>
-    </div>
-</div>
-
-<%-- <div class="container mt-4 border">
-    <div class="section1">
-        <!-- 섹션 1 내용 -->
-        <div class="account-info">
-            <div class="title">계좌개설</div>
-            <div class="select_bank">
-                <div class="btn-group" role="group" aria-label="Select Bank">
-                    <button type="button" class="btn btn-secondary" onclick="selectAllAccounts()">입출금 계좌</button>
-                    <button type="button" class="btn btn-secondary" onclick="selectDepositAccounts()">예금 계좌</button>
-                    <button type="button" class="btn btn-secondary" onclick="selectSavingAccounts()">적금 계좌</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="row row-cols-3 justify-content-center">
-        <% 
-        List<ProductInfoDTO> productList = getProductList();
-        for(ProductInfoDTO product: productList) { 
-        %>
-        <div class="col">
-            <div class="product-container-lg border p-3" onmouseover="this.style.backgroundColor='#f1f1f1';" onmouseout="this.style.backgroundColor='transparent';">
-                <p class="product-name"><%= product.getProductName() %></p>
-                <p class="product-category"><%= product.getProductCategory() %></p>
-                <p class="product-interest-rate-lg"><%= String.format("%.2f", product.getInterestRate()) %>%</p>
-                <p class="product-minimum-balance"><small>Minimum Balance:</small> <%= product.getMinimumBalance() %></p>
-                <p class="product-description-lg"><small>Description:</small> <%= product.getProductDescription() %></p>
-            </div>
-        </div>
-        <% 
-        } 
-        %>
-    </div>
-</div>
-
- --%>
-
-
-
-
-    <!--    <div class="section2"></div>
-
-    <div class="section3"></div>
-
-    <div class="section4"></div> -->
-
-
-
-    <div id="accountDetailsContainer"></div>
 
     <footer class="BankFooter">
         <div class="BankFooterContent">
@@ -614,30 +414,8 @@ function selectAllAccounts() {
 
     </footer>
 
-    <!— 부트스트랩 JavaScript 연결 —>
+    <!-- 부트스트랩 JavaScript 연결 -->
     <script
         src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>
-
-<script>
-    // createAccount.jsp로 이동하는 함수
-    function goToCreateAccount() {
-        window.location.href = "view/createAccount.jsp";
-    }
-</script>
-
-<!-- createAccount.jsp로 이동하는 버튼 -->
-<button onclick="goToCreateAccount()">계좌 개설</button>
-
-<!-- 기존 내용 -->
-<%
-    MemberDTO dto = new MemberDTO();
-    //DTO 객체에 데이터 설정
-    dto.setMemberId("gj98");
-    dto.setName("John Doe");
-    dto.setEmail("johndoe@example.com");
-
-    session.setAttribute("dto", dto);
-%>
-
 </body>
 </html>

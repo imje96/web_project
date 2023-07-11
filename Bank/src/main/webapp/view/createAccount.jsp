@@ -121,6 +121,34 @@
     }
 </script>
 
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // 패스워드 체크
+        let passwd = document.querySelector("#pw");
+        let passwdck = document.querySelector("#pwck");
+        let message = document.createElement("p");
+        message.style.color = "green";
+        message.style.fontWeight = "bold";
+        // 메시지 엘리먼트를 추가
+        passwdck.insertAdjacentElement('afterend', message);
+        passwdck.addEventListener("input", function () {
+            if (passwd.value === passwdck.value) {
+                message.textContent = "비밀번호가 일치합니다.";
+                document.querySelector('input[type="submit"]').disabled = false; // 비밀번호 일치 시 회원가입 버튼 활성화
+            } else {
+                message.textContent = "비밀번호가 일치하지 않습니다.";
+                
+            }
+        });
+        // 회원가입 요청(submit) 시 비밀번호 일치 여부 확인
+        document.querySelector('form').addEventListener("submit", function (event) {
+            if (passwd.value !== passwdck.value) {
+                event.preventDefault(); // submit 동작 중지
+                alert("비밀번호가 일치하지 않습니다."); // 비밀번호 불일치 시 알림창 표시
+            }
+        });
+    });
+
 </head>
 <body>
     <h1>계좌 개설</h1>
@@ -141,6 +169,11 @@
         <label>계좌 비밀번호 확인: </label>
         <input type="password" name="accountPasswordCheck"><br>
 
+        <label for="pw">계좌비밀번호:</label> <input type="password" name="pw"
+			id="pw" placeholder="숫자 4글자를 입력해주세요." required
+			value="${param.pw}"> <label for="pwck">비밀번호 확인</label> <input
+			type="password" name="pwck" id="pwck" placeholder="숫자4자리를 다시 입력해주세요." required value="${param.pwck}">
+        
 		<!-- modal -->
 			
 			<div class="modal">

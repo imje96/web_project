@@ -1,7 +1,5 @@
 package vo;
 
-import java.util.Date;
-
 public class AccountInfoDTO {
     private String accountNumber;
     private String memberId;
@@ -10,17 +8,14 @@ public class AccountInfoDTO {
     private String accountPassword;
     private int balance;
     private String nickname;
-    private int accountType;
+    private int productId;
     private int accountStatus;
-    private Date regDate;
-
-    public AccountInfoDTO() {
-
-    }
-
+    private int openBankingStatus;
+    private String regDate;
+    
     public AccountInfoDTO(String accountNumber, String memberId, String bankCode, String branchCode,
-            String accountPassword, int balance, String nickname, int accountType,
-            int accountStatus, Date regDate) {
+            String accountPassword, int balance, String nickname, int productId, int accountStatus,
+            int openBankingStatus, String regDate) {
         super();
         this.accountNumber = accountNumber;
         this.memberId = memberId;
@@ -29,8 +24,9 @@ public class AccountInfoDTO {
         this.accountPassword = accountPassword;
         this.balance = balance;
         this.nickname = nickname;
-        this.accountType = accountType;
+        this.productId = productId;
         this.accountStatus = accountStatus;
+        this.openBankingStatus = openBankingStatus;
         this.regDate = regDate;
     }
 
@@ -48,6 +44,14 @@ public class AccountInfoDTO {
 
     public void setMemberId(String memberId) {
         this.memberId = memberId;
+    }
+
+    public String getBankCode() {
+        return bankCode;
+    }
+
+    public void setBankCode(String bankCode) {
+        this.bankCode = bankCode;
     }
 
     public String getBranchCode() {
@@ -82,12 +86,12 @@ public class AccountInfoDTO {
         this.nickname = nickname;
     }
 
-    public int getAccountType() {
-        return accountType;
+    public int getProductId() {
+        return productId;
     }
 
-    public void setAccountType(int accountType) {
-        this.accountType = accountType;
+    public void setProductId(int productId) {
+        this.productId = productId;
     }
 
     public int getAccountStatus() {
@@ -98,19 +102,22 @@ public class AccountInfoDTO {
         this.accountStatus = accountStatus;
     }
 
-    public String getBankCode() {
-        return bankCode;
+    public int getOpenBankingStatus() {
+        return openBankingStatus;
     }
 
-    public void setBankCode(String bankCode) {
-        this.bankCode = bankCode;
+    public void setOpenBankingStatus(int openBankingStatus) {
+        this.openBankingStatus = openBankingStatus;
     }
 
-    public Date getRegDate() {
+    public String getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
+    
+
+  
 }

@@ -1,6 +1,5 @@
 package vo;
 
-import java.util.Date;
 
 public class MemberDTO {
     private String memberId;
@@ -15,10 +14,57 @@ public class MemberDTO {
     private String zipcode;
     private String address;
     private String detailAddress;
-    private int privacyAgreeYn;
-    private Date regDate;
-    private int accountStatus;
-    private Date withdrawalDate;
+    private String regDate;
+    private int memberStatus;
+    private String withdrawalDate;
+
+    
+
+
+    public MemberDTO(String memberId, String name, String userPassword, String easyPassword,
+            String email, String phone, String personalIdNumber, String gender, String birth,
+            String zipcode, String address, String detailAddress, String regDate, int memberStatus,
+            String withdrawalDate) {
+        super();
+        this.memberId = memberId;
+        this.name = name;
+        this.userPassword = userPassword;
+        this.easyPassword = easyPassword;
+        this.email = email;
+        this.phone = phone;
+        this.personalIdNumber = personalIdNumber;
+        this.gender = gender;
+        this.birth = birth;
+        this.zipcode = zipcode;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.regDate = regDate;
+        this.memberStatus = memberStatus;
+        this.withdrawalDate = withdrawalDate;
+    }
+    
+    public MemberDTO(String memberId, String name, String userPassword, String easyPassword, String email,
+            String phone, String personalIdNumber, String zipcode,
+            String address, String detailAddress) {
+        super();
+        this.memberId = memberId;
+        this.name = name;
+        this.userPassword = userPassword;
+        this.easyPassword = easyPassword;
+        this.email = email;
+        this.phone = phone;
+        this.personalIdNumber = personalIdNumber;
+        this.gender = null;
+        this.birth = null;
+        this.zipcode = zipcode;
+        this.address = address;
+        this.detailAddress = detailAddress;
+        this.regDate = null;
+        this.memberStatus = 1;
+        this.withdrawalDate = null;
+    }
+    
+    
 
     public String getMemberId() {
         return memberId;
@@ -116,38 +162,40 @@ public class MemberDTO {
         this.detailAddress = detailAddress;
     }
 
-    public int getPrivacyAgreeYn() {
-        return privacyAgreeYn;
-    }
 
-    public void setPrivacyAgreeYn(int privacyAgreeYn) {
-        this.privacyAgreeYn = privacyAgreeYn;
-    }
-
-    public Date getRegDate() {
+    public String getRegDate() {
         return regDate;
     }
 
-    public void setRegDate(Date regDate) {
+    public void setRegDate(String regDate) {
         this.regDate = regDate;
     }
 
-    public int getAccountStatus() {
-        return accountStatus;
+    public int getMemberStatus() {
+        return memberStatus;
     }
 
-    public void setAccountStatus(int accountStatus) {
-        this.accountStatus = accountStatus;
+    public void setMemberStatus(int memberStatus) {
+        this.memberStatus = memberStatus;
     }
 
-    public Date getWithdrawalDate() {
-        return withdrawalDate;
+    public String getWithdrawalDate() {
+        return withdrawalDate; 
     }
 
-    public void setWithdrawalDate(Date withdrawalDate) {
+    public void setWithdrawalDate(String withdrawalDate) {
         this.withdrawalDate = withdrawalDate;
     }
 
 
-
+   
+    @Override
+    public String toString() {
+        return "MemberDto [memberId=" + memberId + ", name=" + name + ", userPassword="
+                + userPassword + ", easyPassword=" + easyPassword + ", email=" + email + ", phone="
+                + phone + ", personalIdNumber=" + personalIdNumber + ", gender=" + gender
+                + ", birth=" + birth + ", zipcode=" + zipcode + ", address=" + address
+                + ", detailAddress=" + detailAddress + ", regDate=" + regDate + ", memberStatus="
+                + memberStatus + ", withdrawalDate=" + withdrawalDate + "]";
+    }
 }
