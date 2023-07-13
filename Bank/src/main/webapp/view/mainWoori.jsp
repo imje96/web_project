@@ -31,9 +31,8 @@ body {
 	text-align: center;
 }
 
-/* 메뉴바 */
 .navbar-nav .nav-item {
-	margin-left: 2rem;
+	margin-left: 50px;
 }
 
 .navbar-nav .nav-link {
@@ -41,42 +40,41 @@ body {
 }
 
 .navbar {
-	padding-top: 1rem;
-	padding-bottom: 1rem;
+	padding-top: 10px; /* 헤더 상단 여백 조절 */
+	padding-bottom: 10px; /* 헤더 하단 여백 조절 */
 }
 
 .navbar-brand {
-	margin-bottom: 1rem;
+	margin-left: 50px; /* 로고 이미지와 메뉴 간격 조절 */
 }
 
 .navbar-nav {
-	margin-left: -1.5rem;
+	margin-left: -50px; /* 메뉴 간격 조절 */
 }
 
 .logo-img {
-	margin-left: 5rem;
+	margin-left: 80px;
 	max-width: 100px;
 	max-height: 100px;
 }
 
 .navbar {
-	padding-top: 0.3rem;
-	padding-bottom: 0.3rem;
+	padding-top: 3px; /* 헤더 상단 여백 조절 */
+	padding-bottom: 3px; /* 헤더 하단 여백 조절 */
 }
 
 .navbar-divider {
-	border-top: 2px solid #009591;
+	border-top: 2px solid #0082C9;
 	margin-top: 0;
 	margin-bottom: 0;
 	width: 100%;
 }
-
 .navbar-nav .nav-item:nth-child(6) {
 	margin-left: 1.5rem;
 }
 
 #carouselExampleIndicators .section1 {
-	background: linear-gradient(to bottom, #C1E9E8, #FFFFFF);
+	background: linear-gradient(to bottom, #69C8FC, #FFFFFF);
 	height: 400px;
 }
 
@@ -198,7 +196,7 @@ body {
 }
 
 #carouselExampleIndicators .Link:first-child {
-	background: #009591;
+	background: #0082C9;
 }
 
 #carouselExampleIndicators .Link:nth-child(2) {
@@ -252,15 +250,13 @@ margin-left: 100px;
 		
 	}
 }
-
 .section2 {
 	background-color: #ECF0F1;
-	height: 160px;
+	height: 150px;
 }
 
 .section-middle-wrap {
 	display: flex;
-	margin-top: -10px;
 	justify-content: center;
 	align-items: center;
 	background: #ECF0F1;
@@ -431,189 +427,33 @@ margin-left: 100px;
 	word-wrap: break-word;
 	cursor: pointer;
 }
-
-.DivSectionAppconWrapBankLogo {
-	width: 100%;
-	height: 158px;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	background: white;
-}
-
-.DivSectionAppconInnerBankLogo {
-	width: 1150px;
-	height: 158px;
-	position: relative;
-}
-
-.ListBankLogo {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	margin-top: 10px;
-	gap: 100px;
-}
-
-.logoUrl_hana, .logoUrl_woori, .logoUrl_KB, .logoUrl_IBK, .logoUrl_NH {
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 100px;
-	height: 100px;
-	overflow: hidden;
-}
-
-.logoUrl_hana img, .logoUrl_woori img, .logoUrl_KB img, .logoUrl_IBK img,
-	.logoUrl_NH img {
-	width: auto;
-	height: 100%;
-	object-fit: contain;
-}
-
-/* 푸터 */
-.BankFooter {
-	background-color: #f7f7f7;
-	padding: 20px;
-	text-align: center;
-}
-
-.BankFooterContent {
-	max-width: 800px;
-	margin: 0 auto;
-	margin-top: 30px;
-	margin-left: -50px;
-}
-
-.FooterLinks {
-	list-style: none;
-	padding: 0;
-	margin-bottom: 10px;
-}
-
-.FooterLinks li {
-	display: inline-block;
-	margin-right: 10px;
-}
-
-.FooterLinks li:last-child {
-	margin-right: 0;
-}
-
-.FooterLinks a {
-	color: #333;
-	text-decoration: none;
-	font-size: 14px;
-}
-
-.FooterDescription {
-	color: #666;
-	font-size: 12px;
-}
-
-.ContactItem {
-	width: 250px;
-	height: 40px;
-	position: absolute;
-	margin-right: 150px;
-	right: 0;
-}
-
-.ContactTitle {
-	width: 50px;
-	height: 20px;
-	text-align: right;
-	color: #009591;
-	font-size: 14px;
-	font-family: Noto Sans KR;
-	font-weight: 350;
-	line-height: 10px; /* Increase line-height to add spacing */
-	word-wrap: break-word;
-	position: absolute;
-	top: 2px;
-	right: 30px;
-}
-
-.ContactNumber {
-	width: 122.17px;
-	height: 36px;
-	text-align: right;
-	color: #333333;
-	font-size: 24px;
-	font-family: Noto Sans KR;
-	font-weight: 350;
-	line-height: 24px;
-	word-wrap: break-word;
-	position: absolute;
-	top: 19px;
-}
-
-.ContactNumber.Strong15881111 {
-	left: 0;
-	right: 30px;
-}
-
-.ContactSeparator {
-	width: 9.12px;
-	height: 36px;
-	text-align: right;
-	color: #DDDDDD;
-	font-size: 24px;
-	font-family: Noto Sans KR;
-	font-weight: 350;
-	line-height: 24px;
-	word-wrap: break-word;
-	position: absolute;
-	top: 19px;
-	left: 124.68px;
-}
-
-.ContactNumber.Strong15991111 {
-	left: 105px;
-}
-}
 </style>
+
 
 <!-- 부트스트랩 연결 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
-<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
 </head>
 <body>
 	<div class="header">
 		<!-- 메뉴바 내용 -->
 		<nav class="navbar navbar-expand-lg">
 			<div class="container-fluid">
-				<c:url var="logoUrl" value="/hanabank.jpg" />
-				<a class="navbar-brand" href="mainHana.jsp"> <img
-					src="${logoUrl}" alt="로고" class="logo-img">
+				<c:url var="logoUrl" value="/woori.jpg" />
+				<a class="navbar-brand" href="#"> <img src="${logoUrl}" alt="로고"
+					class="logo-img">
 				</a>
-
 				<div class="collapse navbar-collapse justify-content-center"
 					id="navbarSupportedContent">
 					<ul class="navbar-nav mb-2 mb-lg-0">
 						<li class="nav-item"><a class="nav-link active"
-							aria-current="page" href="innerAccount.jsp">계좌조회</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="accountTransferInner.jsp">계좌이체</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="makeAccountSelect.jsp">계좌개설</a></li>
-						<li class="nav-item"><a class="nav-link"
-							href="transferInfo.jsp">거래내역조회</a></li>
+							aria-current="page" href="#">계좌조회</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">계좌이체</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">계좌개설</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">고객센터</a></li>
-						<li class="nav-item dropdown"><a
-							class="nav-link dropdown-toggle" href="#" role="button"
-							data-bs-toggle="dropdown" aria-expanded="false"> 마이페이지 </a>
-							<ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-								<li><a class="dropdown-item" href="login.jsp">로그인</a></li>
-								<li><a class="dropdown-item" href="signin.jsp">회원가입</a></li>
-							</ul></li>
-						<li class="nav-item" style="margin-right: -30px;"><a
-							class="nav-link" href="login.jsp">로그인</a></li>
-						<li class="nav-item"><a class="nav-link" href="signin.jsp">회원가입</a></li>
+						<li class="nav-item"><a class="nav-link" href="#">마이페이지</a></li>
 					</ul>
 				</div>
-
 				<form class="d-flex" role="search">
 					<input class="form-control me-2" type="search" placeholder="Search"
 						aria-label="Search">
@@ -683,9 +523,9 @@ margin-left: 100px;
 					<div class="section1">
 						<div class="content">
 							<div class="hello-word">
-								<p class="fw-bold2">행복한 미래를 위한 금융 파트너, 하나은행 🏦</p>
+								<p class="fw-bold2">행복한 미래를 위한 금융 파트너, 우리은행 🏦</p>
 								<p class="fw-normal2">
-									당신의 미래를 함께 설계합니다.<br> 경제적 자유를 위한 첫 걸음, 하나은행에서 시작하세요 💚
+									당신의 미래를 함께 설계합니다.<br> 경제적 자유를 위한 첫 걸음, 우리은행에서 시작하세요 💙
 								</p>
 							</div>
 							<div class="img-container">
@@ -703,7 +543,7 @@ margin-left: 100px;
 					<div class="section1">
 						<div class="content">
 							<div class="hello-word">
-								<p class="fw-bold2">고객 만족을 위한 변화,<br>하나은행에서 만나보세요 🌈 </p>   
+								<p class="fw-bold2">고객 만족을 위한 변화,<br>우리은행에서 만나보세요 🌈 </p>   
 								<p class="fw-normal2">차별화된 금융 서비스 세상으로 당신을 초대합니다 🌱</p>
 							</div>
 							<div class="img-container">
@@ -729,29 +569,30 @@ margin-left: 100px;
 			</button>
 		</div>
 	</div>
+
 	<div class="section2">
 		<!-- 섹션 2 내용 -->
 		<div class="section-middle-wrap">
 			<div class="link-container">
-				<div class="link-item1" data-aos="fade-up">
+				<div class="link-item1">
 					<c:url var="logoUrl_bankbook" value="/bankbook.svg" />
-					<a class="logoUrl_bankbook" href="makeAccountSelect.jsp"> <img
+					<a class="logoUrl_bankbook" href="#"> <img
 						src="${logoUrl_bankbook}" alt="아이콘" class="logoUrl_bankbook">
 					</a>
 					<div class="link-text">손 쉬운 계좌개설</div>
-				</div>
 
-				<div class="link-item2" data-aos="fade-up" data-aos-delay="200">
+				</div>
+				<div class="link-item2">
 					<c:url var="logoUrl_send" value="/send.svg" />
-					<a class="logoUrl_send" href="accountTransferInner.jsp"> <img
-						src="${logoUrl_send}" alt="아이콘" class="logoUrl_send">
+					<a class="logoUrl_send" href="#"> <img src="${logoUrl_send}"
+						alt="아이콘" class="logoUrl_send">
 					</a>
 					<div class="link-text">간편한 이체</div>
 
 				</div>
-				<div class="link-item3" data-aos="fade-up" data-aos-delay="400">
+				<div class="link-item3">
 					<c:url var="logoUrl_glasses" value="/glasses.svg" />
-					<a class="logoUrl_glasses" href="innerAccount.jsp"> <img
+					<a class="logoUrl_glasses" href="#"> <img
 						src="${logoUrl_glasses}" alt="아이콘" class="logoUrl_glasses">
 					</a>
 					<div class="link-text">내가 보유한 계좌를 한눈에!</div>
@@ -759,15 +600,6 @@ margin-left: 100px;
 			</div>
 		</div>
 	</div>
-
-	<script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-	<script>
-		AOS.init();
-	</script>
-
-
-
-
 
 	<div class="section3">
 		<!-- 섹션 3 내용 -->
@@ -795,59 +627,16 @@ margin-left: 100px;
 
 	</div>
 
-	<div class="section4">
+	<div class="section">
 		<!-- 섹션 4 내용 -->
-		<div class="DivSectionAppconWrapBankLogo">
-			<div class="DivSectionAppconInnerBankLogo">
-				<div class="ListBankLogo">
-					<c:url var="logoUrl_hana" value="/hana.jpg" />
-					<a class="logoUrl_hana" href="#"> <img src="${logoUrl_hana}"
-						alt="로고" class="logoUrl_hana">
-					</a>
-					<c:url var="logoUrl_woori" value="/woori.jpg" />
-					<a class="logoUrl_woori" href="mainWoori.jsp"> <img
-						src="${logoUrl_woori}" alt="로고" class="logoUrl_woori">
-					</a>
-					<c:url var="logoUrl_KB" value="/KB.jpg" />
-					<a class="logoUrl_KB" href="mainKB.jsp"> <img
-						src="${logoUrl_KB}" alt="로고" class="logoUrl_KB">
-					</a>
-					<c:url var="logoUrl_IBK" value="/IBK.jpg" />
-					<a class="logoUrl_IBK" href="#"> <img src="${logoUrl_IBK}"
-						alt="로고" class="logoUrl_IBK">
-					</a>
-					<c:url var="logoUrl_NH" value="/NH.jpg" />
-					<a class="logoUrl_NH" href="#"> <img src="${logoUrl_NH}"
-						alt="로고" class="logoUrl_NH">
-					</a>
-				</div>
-			</div>
-		</div>
-
+		<h2>섹션 4</h2>
+		<p>섹션 4의 내용입니다.</p>
 	</div>
 
-
-
-	<footer class="BankFooter">
-		<div class="BankFooterContent">
-			<ul class="FooterLinks">
-				<li><a href="#">이용약관</a></li>
-				<li><a href="#">개인정보처리방침</a></li>
-				<li><a href="#">보안정책</a></li>
-				<li><a href="#">고객센터</a></li>
-			</ul>
-			<div class="ContactItem">
-				<div class="ContactTitle">고객센터</div>
-				<div class="ContactNumber Strong15881111">1588-1111</div>
-				<div class="ContactSeparator">/</div>
-				<div class="ContactNumber Strong15991111">1599-1111</div>
-			</div>
-
-			<p class="FooterDescription">하나은행오픈뱅킹입니다.</p>
-		</div>
-
-	</footer>
-
+	<div class="footer">
+		<!-- 푸터 내용 -->
+		<p>푸터 내용입니다.</p>
+	</div>
 	<!-- 부트스트랩 JavaScript 연결 -->
 	<script
 		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.min.js"></script>

@@ -1,20 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%-- <%@ page import="vo.MemberDTO" %> 
-<%@ page import="org.json.JSONObject" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+
+
 <!DOCTYPE html>
 <html>
 <head>
-<title>웹 페이지</title>
+<title>Insert title here</title>
 <style>
 /* CSS 스타일 지정 */
-@font-face {
-	font-family: 'Hana2-CM';
-	src: url('bootstrap/fonts/Hana2-CM.woff') format('woff');
-	/* 다른 서체 속성 설정 */
-}
-
 body {
 	margin: 0;
 	padding: 0;
@@ -35,6 +30,7 @@ body {
 	padding: 20px;
 	text-align: center;
 }
+
 /* 메뉴바 */
 .navbar-nav .nav-item {
 	margin-left: 40px;
@@ -81,106 +77,154 @@ body {
 
 .section1 {
 	background-color: #FFFFFF;
-	height: 1000px;
+	height: 800px;
+}
+
+.transfer-info {
+	width: 100%;
+	height: 150px;
+	position: relative;
 }
 
 .title {
 	left: 180px;
-	top: 150px;
+	top: 45px;
 	position: absolute;
 	text-align: center;
 	color: black;
 	font-size: 30px;
-	font-family: 'Hana2-CM';
+	font-family: Noto Sans KR;
 }
 
-#product-table {
-	width: 90%;
+/* 은행선택 */
+.select_bank {
+	left: 360px;
+	top: 40px;
+	position: absolute;
+}
+
+.btn-group {
+	display: flex;
+	gap: 10px;
+}
+
+.btn-group .btn {
+	font-size: 18px;
+	font-family: Inter, sans-serif;
+	font-weight: 500;
+	line-height: 1.5;
+	padding: 10px 20px;
+	border-radius: 30px;
+	background-color: #f7f7f7;
+	color: #080C0C;
+	transition: background-color 0.3s, color 0.3s;
+	border: 2px solid #f7f7f7;
+}
+
+.btn-group .btn:hover, .btn-group .btn:focus {
+	background-color: #419390;
+	color: #ffffff;
+	border-color: #419390;
+}
+
+/* 입출금, 예적금 */
+/* .category-wrapper {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	width: 200px;
+	height: 10px;
+	position: absolute;
+	top: 120px;
+	left: 180px;
+}
+
+.category {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	background-color: #ffffff;
+	height: 40px;
+	padding: 10px 20px;
+	border: 2px solid #cccccc;
+	border-radius: 30px;
+	font-size: 15px;
+	white-space: nowrap;
+	margin-right: 20px;
+} */
+.bank-buttons {
+	display: flex;
+	gap: 10px;
+	position: absolute;
+	top: 220px;
+	left: 170px;
+}
+
+.rounded-button1, .rounded-button2, .rounded-button3, .rounded-button4 {
+	padding: 10px 35px;
+	color: #000000;
+	border: none;
+	border-radius: 30px;
+	font-size: 15px;
+	font-weight: 500;
+	cursor: pointer;
+	transition: background-color 0.3s, box-shadow 0.3s;
+	/* 그림자 효과에 대한 transition 추가 */
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* 그림자 효과 추가 */
+}
+
+.rounded-button1:hover, .rounded-button2:hover, .rounded-button3:hover,
+	.rounded-button4:hover {
+	background-color: #30354B;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2); /* 호버 시 그림자 효과 변경 */
+}
+
+.rounded-button1 {
+	background-color: #0082C9;
+}
+
+.rounded-button2 {
+	background-color: #5E7EB5;
+}
+
+.rounded-button3 {
+	background-color: #8CC891;
+}
+
+.rounded-button4 {
+	background-color: #F6D068;
+}
+
+.rounded-button:hover {
+	background-color: #30354B;
+}
+
+table {
+	width: 80%;
 	margin: 0 auto;
-	margin-top: -50px;
-	text-align: center;
+	background-color: #fff;
 	border-collapse: collapse;
-	margin-top: -50px;
+	border: 1px solid #ddd;
+	margin-top: 50px;
 }
 
 th, td {
-	padding: 20px;
-	border-bottom: 1px solid #eee;
-	text-align: center;
+	padding: 10px;
+	text-align: left;
+	border-bottom: 1px solid #ddd;
 }
 
 th {
-	font-weight: 500;
-	position: relative;
-	font-size: 30px;
-}
-
-th:after {
-	content: "";
-	position: absolute;
-	bottom: -1px;
-	left: 0;
-	width: 100%;
-	height: 1px;
-	background-color: #ccc;
-}
-
-tr {
-	transition: all 0.3s ease;
+	background-color: #419390;
+	color: #fff;
+	font-weight: bold;
 }
 
 tr:hover {
 	background-color: #f9f9f9;
-	border-color: #009590;
 }
 
-td:first-child, td:last-child {
-	width: 50%; /* 각 셀이 테이블 너비의 50%를 차지하도록 설정합니다 */
-}
-
-td:last-child a {
-	text-decoration: none;
-	transition: color 0.3s;
-}
-
-td:last-child a:hover {
-	color: #00756d;
-}
-
-.product-buttons {
-	list-style-type: none;
-	padding: 0;
-	margin: 100px 0;
-	margin-left: 160px;
-}
-
-.product-buttons li {
-	display: inline-block;
-	margin-right: 10px;
-}
-
-.product-buttons button, .show-all-button {
-	background-color: #009490;
-	color: #fff;
-	padding: 10px 20px;
-	border: none;
-	border-radius: 30px;
-	font-size: 16px;
-	font-weight: bold;
-	cursor: pointer;
-	transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s;
-}
-
-.product-buttons button:hover, .show-all-button:hover {
-	background-color: #00756d;
-	transform: translateY(-2px);
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.hide {
-	display: none;
-}
-
+/* 푸터 */
 .BankFooter {
 	background-color: #f7f7f7;
 	padding: 20px;
@@ -282,8 +326,6 @@ td:last-child a:hover {
 }
 </style>
 
-
-<!-- 부트스트랩 연결 -->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css">
 </head>
@@ -330,109 +372,76 @@ td:last-child a:hover {
 			</div>
 		</nav>
 
+
 	</div>
 	<hr class="navbar-divider">
+
 
 	<div class="section1">
 
 
+		<div class="transfer-info">
+			<div class="title">거래내역 조회</div>
+			<div class="select_bank">
+				<div class="btn-group" role="group" aria-label="Select Bank">
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='transferInfo.jsp'">All</button>
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='transferInfo.jsp'">하나은행</button>
+					<button type="button" class="btn btn-secondary"
+						onclick="location.href='transferInfoOuter.jsp'">다른은행</button>
+				</div>
+			</div>
+
+		</div>
 
 
-		<script>
-			function showDetails(productType) {
-				var table = document.getElementById("product-table");
-				var rows = table.getElementsByTagName("tr");
+		<!-- 	<div class="category-wrapper">
+				<div class="category">입출금</div>
+				<div class="category">예금・적금</div>
+			</div> -->
 
-				for (var i = 1; i < rows.length; i++) {
-					var row = rows[i];
-					var productTypeCell = row.cells[0];
-					if (productTypeCell.innerText === productType) {
-						row.style.display = "table-row";
-					} else {
-						row.style.display = "none";
-					}
-				}
-			}
-
-			function showAll() {
-				var table = document.getElementById("product-table");
-				var rows = table.getElementsByTagName("tr");
-
-				for (var i = 1; i < rows.length; i++) {
-					rows[i].style.display = "table-row";
-				}
-			}
-		</script>
-
-		<div class="title">계좌개설 / 상품목록</div>
-
-		<ul class="product-buttons">
-			<li><button onclick="showDetails('입출금상품')">입출금 상품</button></li>
-			<li><button onclick="showDetails('예금상품')">예금 상품</button></li>
-			<li><button onclick="showDetails('적금상품')">적금 상품</button></li>
-			<li><button class="show-all-button" onclick="showAll()">전체
-					상품 보기</button></li>
-		</ul>
-
-		<table id="product-table">
+		<div class="bank-buttons">
+			<button class="rounded-button1">우리은행</button>
+			<button class="rounded-button2">기업은행</button>
+			<button class="rounded-button3">농협은행</button>
+			<button class="rounded-button4">국민은행</button>
+		</div>
+		<table>
 			<thead>
 				<tr>
-					<th>상품 종류</th>
-					<th>세부 상품</th>
+					<th>번호</th>
+					<th>내계좌</th>
+					<th>상대계좌</th>
+					<th>거래구분</th>
+					<th>거래금액</th>
+					<th>내용</th>
+					<th>거래일자</th>
+					<th>거래시간</th>
 				</tr>
 			</thead>
-		<tbody>
-	<tr>
-		<td>입출금상품</td>
-		<td><span onclick="passText(this, '영하나플러스 통장')">영하나플러스 통장 </span></td>
-	</tr>
-	<tr>
-		<td>입출금상품</td>
-		<td><span onclick="passText(this, '급여하나 통장')">급여하나 통장</span></td>
-	</tr>
-	<tr>
-		<td>입출금상품</td>
-		<td><span onclick="passText(this, '하나 취업이룸 통장')">하나 취업이룸 통장</span></td>
-	</tr>
-	<tr>
-		<td>예금상품</td>
-		<td><span onclick="passText(this, '3·6·9 정기예금')">3·6·9 정기예금</span></td>
-	</tr>
-	<tr>
-		<td>예금상품</td>
-		<td><span onclick="passText(this, '행복knowhow 연금예금')">행복knowhow 연금예금</span></td>
-	</tr>
-	<tr>
-		<td>예금상품</td>
-		<td><span onclick="passText(this, '고단위 플러스(금리연동형)')">고단위 플러스(금리연동형)</span></td>
-	</tr>
-	<tr>
-		<td>적금상품</td>
-		<td><span onclick="passText(this, '하나 청년도약계좌')">하나 청년도약계좌</span></td>
-	</tr>
-	<tr>
-		<td>적금상품</td>
-		<td><span onclick="passText(this, '펫사랑 적금')">펫사랑 적금</span></td>
-	</tr>
-	<tr>
-		<td>적금상품</td>
-		<td><span onclick="passText(this, '급여하나 월복리 적금')">급여하나 월복리 적금</span></td>
-	</tr>
-	
-</tbody>
-		
+			<tbody>
+				<c:forEach items="${transactionList}" var="transaction">
+					<tr>
+						<td>${transaction.id}</td>
+						<td>${transaction.myAccount}</td>
+						<td>${transaction.otherAccount}</td>
+						<td>${transaction.transactionType}</td>
+						<td>${transaction.amount}</td>
+						<td>${transaction.description}</td>
+						<td>${transaction.date}</td>
+						<td>${transaction.time}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
 		</table>
-
-		<script>
-			function passText(element, text) {
-				// 다음 페이지로 텍스트를 전달하는 방법 (예시)
-				window.location.href = "makeAccount.jsp?text="
-						+ encodeURIComponent(text);
-			}
-		</script>
 
 
 	</div>
+
+
+
+
 
 	<footer class="BankFooter">
 		<div class="BankFooterContent">
