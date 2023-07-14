@@ -503,47 +503,43 @@ input[type="button"]:hover, input[type="submit"]:hover {
     
     
     function validatePersonalId() {
-        var personalId1 = document.getElementById('personal_id_1').value;
-        var personalId2 = document.getElementById('personal_id_2').value;
+    	  var personalId1 = document.getElementById('personal_id_1').value;
+    	  var personalId2 = document.getElementById('personal_id_2').value;
 
-        // 각 입력 필드의 길이를 확인
-        if (personalId1.length !== 6 || personalId2.length !== 7) {
-            alert("주민등록번호를 다시 입력해주세요.");
-            return false;
-        }
+    	  // 각 입력 필드의 길이를 확인
+    	  if (personalId1.length !== 6 || personalId2.length !== 7) {
+    	    alert("주민등록번호를 다시 입력해주세요.");
+    	    return false;
+    	  }
 
-        // 숫자로 이루어진지 확인
-        var numericRegex = /^[0-9]+$/;
-        if (!personalId1.match(numericRegex) || !personalId2.match(numericRegex)) {
-            alert("주민등록번호는 숫자로만 입력해야 합니다.");
-            return false;
-        }
+    	  // 숫자로 이루어진지 확인
+    	  var numericRegex = /^[0-9]+$/;
+    	  if (!personalId1.match(numericRegex) || !personalId2.match(numericRegex)) {
+    	    alert("주민등록번호는 숫자로만 입력해야 합니다.");
+    	    return false;
+    	  }
 
-        // 주민등록번호 검사 로직 추가
-        var num1 = personalId1.split("");
-        var num2 = personalId2.split("");
+    	  // 주민등록번호 유효성 검사 로직
+    	  var fullPersonalId = personalId1 + personalId2;
+    	  var sum = 0;
+    	  var checkDigits = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
+    	  
+    	  for (var i = 0; i < checkDigits.length; i++) {
+    	    sum += parseInt(fullPersonalId.charAt(i)) * checkDigits[i];
+    	  }
 
-        var tempSum = 0;
-        for (var i = 0; i < num1.length; i++) {
-          tempSum += num1[i] * (2 + i);
-        }
+    	  var remainder = sum % 11;
+    	  var checkDigit = (11 - remainder) % 10;
 
-        for (var i = 0; i < num2.length - 1; i++) {
-          if (i >= 2) {
-            tempSum += num2[i] * i;
-          } else {
-            tempSum += num2[i] * (8 + i);
-          }
-        }
+    	  if (parseInt(fullPersonalId.charAt(12)) !== checkDigit) {
+    	    alert("올바른 주민등록번호가 아닙니다.");
+    	    return false;
+    	  }
 
-        if ((11 - (tempSum % 11)) % 10 !== parseInt(num2[6])) {
-          alert("올바른 주민등록번호가 아닙니다.");
-          return false;
-        }
+    	  alert("올바른 주민등록번호입니다.");
+    	  return true;
+    	}
 
-        alert("올바른 주민등록번호입니다.");
-        return true;
-      }
     
 
      
