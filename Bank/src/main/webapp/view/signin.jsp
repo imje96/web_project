@@ -500,6 +500,8 @@ input[type="button"]:hover, input[type="submit"]:hover {
     });
     
     
+    
+    
     function validatePersonalId() {
         var personalId1 = document.getElementById('personal_id_1').value;
         var personalId2 = document.getElementById('personal_id_2').value;
@@ -517,10 +519,31 @@ input[type="button"]:hover, input[type="submit"]:hover {
             return false;
         }
 
-        // 여기에 추가적인 유효성 검사 규칙을 추가할 수 있습니다.
+        // 주민등록번호 검사 로직 추가
+        var num1 = personalId1.split("");
+        var num2 = personalId2.split("");
 
+        var tempSum = 0;
+        for (var i = 0; i < num1.length; i++) {
+          tempSum += num1[i] * (2 + i);
+        }
+
+        for (var i = 0; i < num2.length - 1; i++) {
+          if (i >= 2) {
+            tempSum += num2[i] * i;
+          } else {
+            tempSum += num2[i] * (8 + i);
+          }
+        }
+
+        if ((11 - (tempSum % 11)) % 10 !== parseInt(num2[6])) {
+          alert("올바른 주민등록번호가 아닙니다.");
+          return false;
+        }
+
+        alert("올바른 주민등록번호입니다.");
         return true;
-    }
+      }
     
 
      
