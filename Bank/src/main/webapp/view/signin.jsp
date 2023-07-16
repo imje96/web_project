@@ -471,13 +471,12 @@ input[type="button"]:hover, input[type="submit"]:hover {
         }).open();
     }
 
-    // 비밀번호 유효성 검사 
-    
-document.addEventListener("DOMContentLoaded", function () {
+    /* 비밀번호 유효성 검사 */ 
+    document.addEventListener("DOMContentLoaded", function () {
     // 패스워드 체크
     let passwd = document.querySelector("#pw");
     let passwdck = document.querySelector("#pwck");
-    let submitBtn = document.querySelector('input[type="submit"]');
+    let submitBtn = document.querySelector('input[type="submit"]'); // 버튼 활성화 체크
 
     // 메시지 요소 생성
     let createMessageElement = (color) => {
@@ -510,6 +509,7 @@ document.addEventListener("DOMContentLoaded", function () {
     passwdck.addEventListener("input", function () {
         if (passwd.value !== passwdck.value) {
             message2.textContent = "비밀번호가 일치하지 않습니다.";
+           // submitBtn.disabled = true;
         } else {
             message2.textContent = "비밀번호가 일치합니다.";
         }
@@ -523,6 +523,56 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     });
 });
+      /* check sum 방식을 활용한 주민등록번호 체크 */ 
+    document.addEventListener("DOMContentLoaded", function () {
+        // 주민등록번호 체크
+        let personalId1 = document.querySelector("#personal_id_1"); // 생년월일 6자리
+        let personalId2 = document.querySelector("#personal_id_2"); // 뒷 7자리
+        let submitBtn = document.querySelector('input[type="submit"]'); // 버튼 활성화 체크
+
+        let message3 = document.createElement("p");
+        message3.style.color = "red";
+        message3.style.fontWeight = "bold";
+        // 메시지 엘리먼트를 추가
+        personalId2.parentNode.appendChild(message3);
+
+        // 생년월일 필드의 유효성 검사
+        personalId1.addEventListener("input", validatePersonalId);
+
+        // 뒷자리 필드의 입력 체크
+        personalId2.addEventListener("input", validatePersonalId);
+
+        function validatePersonalId() {
+            let fullPersonalId = personalId1.value + personalId2.value;
+
+            // 각 자리 숫자를 규칙에 따라 곱한 값을 저장할 변수
+            let sum = 0;
+
+            // 각 자리에 곱해지는 수를 배열로 선언
+            let multiplyValues = [2, 3, 4, 5, 6, 7, 8, 9, 2, 3, 4, 5];
+
+            // 주민등록번호의 각 자리를 순회하며 곱셈 연산 수행
+            for(let i=0; i<fullPersonalId.length -1  ; i++) {
+                sum += parseInt(fullPersonalId.charAt(i)) * multiplyValues[i];
+            }
+
+            let remainder = sum % 11;
+            let checkDigit = (11 - remainder) % 10; // 체크디지트는 10을 초과할 수 없으며, 10일 경우 0으로 처리
+
+            // 마지막 자리가 검증 숫자와 일치하는지 확인
+            if (parseInt(fullPersonalId.charAt(12)) !== checkDigit) {
+                message3.textContent = "올바른 주민등록번호가 아닙니다.";
+                submitBtn.disabled = true;
+                return false;
+            }
+            message3.textContent = "올바른 주민등록번호입니다.";
+            message3.style.color = "green";
+            submitBtn.disabled = false;
+            return true;
+        }
+    });
+
+
 
     
     
@@ -563,8 +613,8 @@ document.addEventListener("DOMContentLoaded", function () {
     
     
     
-    
-    function validatePersonalId() {
+     // submitBtn 조건이 있기 때문에 없어도 괜찮음
+/*     function validatePersonalId() {
     	  var personalId1 = document.getElementById('personal_id_1').value;
     	  var personalId2 = document.getElementById('personal_id_2').value;
 
@@ -600,7 +650,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     	  alert("올바른 주민등록번호입니다.");
     	  return true;
-    	}
+    	} */
 
     
 
@@ -804,7 +854,7 @@ document.addEventListener("DOMContentLoaded", function () {
    </script>
 			<div class="form-container">
 				<form action="join.member" method="post"
-					onsubmit="return validateId() && validatePersonalId() && validateSimplePw() && validateAddress() && validateEmail()">
+					onsubmit="return validateId() && validateSimplePw() && validateAddress() && validateEmail()">
 					<!--  <h2>회원가입</h2> -->
 					<div class="form-group">
 						<label for="name">이름:</label> <input type="text" name="name"
